@@ -1,0 +1,244 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  width: 380px;
+  max-height: 580px;
+  overflow-y: auto;
+  background: #fafafa;
+  color: #1a1a1a;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
+#topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+}
+
+#app-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#refresh-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #666;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+#refresh-btn:hover {
+  background: #f0f0f0;
+}
+#refresh-btn.spinning {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+#status-bar {
+  padding: 8px 16px;
+  font-size: 12px;
+  color: #888;
+}
+
+#category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 16px 10px;
+}
+
+.category-chip {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: #eee;
+  color: #555;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.category-chip.active {
+  background: #1a73e8;
+  color: white;
+}
+
+#newsletter-list {
+  list-style: none;
+}
+
+.newsletter-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+.newsletter-item:hover {
+  background: #f5f8ff;
+}
+
+.newsletter-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.newsletter-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.newsletter-meta {
+  font-size: 11.5px;
+  color: #888;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.category-tag {
+  font-size: 10px;
+  padding: 1px 7px;
+  border-radius: 8px;
+  background: #eef2ff;
+  color: #4f5bd5;
+}
+
+.newsletter-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a73e8;
+  background: #eaf1fd;
+  padding: 4px 9px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+#empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #888;
+}
+#empty-state button, #scan-btn {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#detail-view {
+  padding: 14px 16px;
+}
+
+#detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+#back-btn {
+  background: none;
+  border: none;
+  color: #1a73e8;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#unsubscribe-btn {
+  background: #fde8e8;
+  color: #d33;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+#unsubscribe-btn:hover {
+  background: #fbd5d5;
+}
+#unsubscribe-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+#detail-sender-name {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+#detail-sender-meta {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 14px;
+}
+
+#detail-message-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.detail-message-item {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.detail-message-subject {
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.detail-message-date {
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.detail-message-snippet {
+  font-size: 11.5px;
+  color: #666;
+  line-height: 1.4;
+}

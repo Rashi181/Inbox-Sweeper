@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Newsletter Manager",
+  "version": "1.0.0",
+  "description": "See every newsletter in your Gmail, how often it lands, and unsubscribe in one click.",
+  "permissions": ["identity", "storage"],
+  "host_permissions": ["https://www.googleapis.com/*"],
+  "oauth2": {
+    "client_id": "529773752779-op088t8iq6pbi2ajo1nku1jnnnq70msc.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly",
+      "https://www.googleapis.com/auth/gmail.modify"
+    ]
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/envelope.png",
+     "48": "icons/heart.png",
+      "128": "icons/menu-burger.png"
+    }
+  },
+  "icons": {
+    "16": "icons/envelope.png",
+    "48": "icons/heart.png",
+    "128": "icons/menu-burger.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

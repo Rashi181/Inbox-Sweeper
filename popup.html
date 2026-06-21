@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Newsletter Manager</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div id="app">
+
+    <header id="topbar">
+      <h1 id="app-title">📬 Newsletters</h1>
+      <button id="refresh-btn" title="Rescan inbox">⟳</button>
+    </header>
+
+    <section id="list-view">
+      <div id="status-bar"></div>
+      <div id="category-filters"></div>
+      <ul id="newsletter-list"></ul>
+      <div id="empty-state" class="hidden">
+        <p>No newsletters found yet.</p>
+        <button id="scan-btn">Scan my inbox</button>
+      </div>
+    </section>
+
+    <section id="detail-view" class="hidden">
+      <div id="detail-header">
+        <button id="back-btn">← Back</button>
+        <button id="unsubscribe-btn">Unsubscribe</button>
+      </div>
+      <h2 id="detail-sender-name"></h2>
+      <p id="detail-sender-meta"></p>
+      <ul id="detail-message-list"></ul>
+    </section>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
