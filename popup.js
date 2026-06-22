@@ -107,15 +107,24 @@ function renderList() {
   for (const group of filtered) {
     const li = document.createElement("li");
     li.className = "newsletter-item";
+    const unreadChip = group.unreadCount > 0
+      ? `<span class="unread-count">${group.unreadCount} unread</span>`
+      : "";
     li.innerHTML = `
       <div class="newsletter-info">
-        <span class="newsletter-name">${escapeHtml(group.senderName)}</span>
+        <span class="newsletter-name">
+          ${group.unreadCount > 0 ? '<span class="unread-badge"></span>' : ""}
+          ${escapeHtml(group.senderName)}
+        </span>
         <span class="newsletter-meta">
           <span class="category-tag">${escapeHtml(group.category)}</span>
           <span>${escapeHtml(group.senderEmail)}</span>
         </span>
       </div>
-      <span class="newsletter-count">${group.count}</span>
+      <div style="display:flex;align-items:center">
+        ${unreadChip}
+        <span class="newsletter-count">${group.count}</span>
+      </div>
     `;
     li.addEventListener("click", () => showDetailView(group));
     els.list.appendChild(li);
@@ -154,10 +163,11 @@ function showDetailView(group) {
   els.detailMessageList.innerHTML = "";
   for (const msg of group.messages) {
     const li = document.createElement("li");
-    li.className = "detail-message-item";
+    li.className = "detail-message-item" + (msg.unread ? " is-unread" : "");
     li.style.cursor = "pointer";
+    const unreadDot = msg.unread ? '<span class="detail-unread-dot"></span>' : "";
     li.innerHTML = `
-      <div class="detail-message-subject">${escapeHtml(msg.subject || "(no subject)")}</div>
+      <div class="detail-message-subject">${unreadDot}${escapeHtml(msg.subject || "(no subject)")}</div>
       <div class="detail-message-date">${formatDate(msg.date)}</div>
       <div class="detail-message-snippet">${escapeHtml(msg.snippet || "")}</div>
     `;

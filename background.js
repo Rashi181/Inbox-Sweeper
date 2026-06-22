@@ -56,6 +56,8 @@ async function getMessageMetadata(token, id) {
   ["From", "Subject", "Date", "List-Unsubscribe", "List-Unsubscribe-Post"].forEach((h) =>
     url.searchParams.append("metadataHeaders", h)
   );
+  url.searchParams.set("fields", "id,threadId,labelIds,snippet,payload");
+
 
   const res = await fetch(url.toString(), {
     headers: { Authorization: `Bearer ${token}` }
@@ -209,7 +211,8 @@ async function scanInbox(onProgress) {
         date: getHeader(headers, "Date"),
         snippet: data.snippet || "",
         listUnsubscribe: listUnsub,
-        oneClick: !!getHeader(headers, "List-Unsubscribe-Post")
+        oneClick: !!getHeader(headers, "List-Unsubscribe-Post"),
+        unread: (data.labelIds || []).includes("UNREAD")
       });
     }
   }
@@ -222,29 +225,35 @@ async function scanInbox(onProgress) {
   for (const msg of newsletterMessages) {
     const { name, email } = parseSender(msg.from);
     if (!groups[email]) {
-      groups[email] = {
+     groups[email] = {
         senderEmail: email,
         senderName: name,
         category: guessCategory(name, email, msg.subject),
         count: 0,
+        unreadCount: 0,
         listUnsubscribe: msg.listUnsubscribe,
         oneClick: msg.oneClick,
         messages: []
       };
     }
-    groups[email].count++;
+   groups[email].count++;
+    if (msg.unread) groups[email].unreadCount++;
     groups[email].messages.push({
       id: msg.id,
       threadId: msg.threadId,
       subject: msg.subject,
       date: msg.date,
-      snippet: msg.snippet
+      snippet: msg.snippet,
+      unread: msg.unread
     });
   }
 
   // Sort each group's messages newest first
   Object.values(groups).forEach((g) => {
-    g.messages.sort((a, b) => new Date(b.date) - new Date(a.date));
+    g.messages.sort((a, b) => {
+      if (b.unread !== a.unread) return b.unread ? 1 : -1; // unread first
+      return new Date(b.date) - new Date(a.date); // then newest
+    });
   });
 
   const result = Object.values(groups).sort((a, b) => b.count - a.count);
